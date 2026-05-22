@@ -8,6 +8,7 @@ import {getStoryPreview, stories} from '../data/stories';
 import type {Story} from '../types/content';
 import {LIKED_STORIES_STORAGE_KEY} from '../uttils/storage';
 import {shareText} from '../uttils/share';
+import {images} from '../assets/images';
 
 const StoriesScreen = () => {
   const [selectedStory, setSelectedStory] = useState<Story | null>(null);
@@ -69,30 +70,26 @@ const StoriesScreen = () => {
             <Pressable
               style={styles.circleButton}
               onPress={() => setSelectedStory(null)}>
-              <Image source={require('../../rmmassets/rmmimgs/backarrw.png')} />
+              <Image source={images.backArrow} />
             </Pressable>
             <View style={styles.detailRightActions}>
               <Pressable
                 style={[styles.circleButton, isLiked && styles.likedButton]}
                 onPress={() => toggleLike(selectedStory.id)}>
                 <Image
-                  source={
-                    isLiked
-                      ? require('../../rmmassets/rmmimgs/stoorylikerd.png')
-                      : require('../../rmmassets/rmmimgs/storylike.png')
-                  }
+                  source={isLiked ? images.storyLiked : images.storyLike}
                 />
               </Pressable>
               <Pressable
                 style={styles.circleButton}
                 onPress={() => shareStory(selectedStory)}>
-                <Image source={require('../../rmmassets/rmmimgs/share.png')} />
+                <Image source={images.share} />
               </Pressable>
             </View>
           </View>
 
           <Text style={styles.detailTitle}>{selectedStory.title}</Text>
-          <Image source={require('../../rmmassets/rmmimgs/divdrunder.png')} />
+          <Image source={images.dividerUnder} />
           <Text style={styles.storyFullText}>{selectedStoryText}</Text>
         </View>
       </Background>

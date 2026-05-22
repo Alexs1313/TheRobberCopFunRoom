@@ -9,6 +9,7 @@ import {jokes} from '../data/jokes';
 import type {Joke, JokeSide} from '../types/content';
 import {SAVED_JOKES_STORAGE_KEY} from '../uttils/storage';
 import {shareText} from '../uttils/share';
+import {images} from '../assets/images';
 
 const sideMeta = {
   police: {
@@ -20,7 +21,7 @@ const sideMeta = {
     cardColors: ['#0745E7', '#0C1573'],
     borderColor: 'rgba(127,168,255,0.42)',
     accent: '#7FA8FF',
-    image: require('../../rmmassets/rmmimgs/robb1.png'),
+    image: images.robb1,
   },
   robber: {
     title: "Slick Rico's Jokes",
@@ -31,7 +32,7 @@ const sideMeta = {
     cardColors: ['#3B0764', '#1A0535'],
     borderColor: 'rgba(217,70,239,0.45)',
     accent: '#C084FC',
-    image: require('../../rmmassets/rmmimgs/robb2.png'),
+    image: images.robb2,
   },
 };
 
@@ -93,7 +94,7 @@ const JokesScreen = () => {
           <Pressable
             style={styles.backButton}
             onPress={() => setSelectedSide(null)}>
-            <Image source={require('../../rmmassets/rmmimgs/backarrw.png')} />
+            <Image source={images.backArrow} />
           </Pressable>
           <Text style={styles.headerEmoji}>{meta.emoji}</Text>
           <Text style={styles.detailTitle}>{meta.title}</Text>
@@ -154,21 +155,19 @@ const JokesScreen = () => {
 
         <Pressable
           onPress={() =>
-            setSelectedSide(Math.random() > 0.5 ? 'police' : 'robber')
+            setSelectedSide(Date.now() % 2 === 0 ? 'police' : 'robber')
           }>
           <LinearGradient
             colors={['#FFD70026', '#0745E733']}
             start={{x: 0, y: 0}}
             end={{x: 1, y: 1}}
-            style={styles.randomCard}>
-            <View style={styles.randomInner}>
-              <View style={styles.randomIcon}>
-                <Image
-                  source={require('../../rmmassets/rmmimgs/randicon.png')}
-                />
+            style={styles.shuffleCard}>
+            <View style={styles.shuffleInner}>
+              <View style={styles.shuffleIcon}>
+                <Image source={images.randIcon} />
               </View>
               <View>
-                <Text style={styles.randomTitle}>Random Category</Text>
+                <Text style={styles.shuffleTitle}>Shuffle Category</Text>
                 <Text style={styles.categoryCaption}>
                   Let fate decide — 24 total jokes
                 </Text>
@@ -212,7 +211,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     fontWeight: '500',
   },
-  randomCard: {
+  shuffleCard: {
     flexDirection: 'row',
     alignItems: 'center',
     height: 98,
@@ -221,12 +220,12 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,215,0,0.42)',
     borderRadius: 22,
   },
-  randomInner: {
+  shuffleInner: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: 20,
   },
-  randomIcon: {
+  shuffleIcon: {
     alignItems: 'center',
     justifyContent: 'center',
     width: 56,
@@ -237,13 +236,13 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: '#FFD70026',
   },
-  randomIconText: {
+  shuffleIconText: {
     color: '#FFD700',
     fontSize: 29,
     lineHeight: 34,
     fontWeight: '700',
   },
-  randomTitle: {
+  shuffleTitle: {
     color: '#FFFFFF',
     fontSize: 18,
     lineHeight: 24,

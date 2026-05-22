@@ -1,5 +1,4 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
 import React from 'react';
 import {
   Image,
@@ -9,12 +8,12 @@ import {
   type ImageSourcePropType,
 } from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-
 import JokesScreen from '../screens/JokesScreen.tsx';
 import SavedScreen from '../screens/SavedScreen.tsx';
 import RateJokeScreen from '../screens/RateJokeScreen.tsx';
 import StoriesScreen from '../screens/StoriesScreen.tsx';
 import GameScreen from '../screens/GamScreen.tsx';
+import {images} from '../assets/images';
 
 const Tab = createBottomTabNavigator();
 
@@ -45,43 +44,23 @@ const TabItem = ({label, focused, source}: TabItemProps) => {
 };
 
 const TabIconExplore = ({focused}: {focused: boolean}) => (
-  <TabItem
-    label="Jokes"
-    focused={focused}
-    source={require('../../rmmassets/rmmimgs/rmmtabo.png')}
-  />
+  <TabItem label="Jokes" focused={focused} source={images.tabExplore} />
 );
 
 const TabIconMap = ({focused}: {focused: boolean}) => (
-  <TabItem
-    label="Saved"
-    focused={focused}
-    source={require('../../rmmassets/rmmimgs/rmmtabt.png')}
-  />
+  <TabItem label="Saved" focused={focused} source={images.tabSaved} />
 );
 
 const TabIconTactics = ({focused}: {focused: boolean}) => (
-  <TabItem
-    label="Rate"
-    focused={focused}
-    source={require('../../rmmassets/rmmimgs/rmmtabth.png')}
-  />
+  <TabItem label="Rate" focused={focused} source={images.tabRate} />
 );
 
 const TabIconStudytasks = ({focused}: {focused: boolean}) => (
-  <TabItem
-    label="Stories"
-    focused={focused}
-    source={require('../../rmmassets/rmmimgs/rmmtabfo.png')}
-  />
+  <TabItem label="Stories" focused={focused} source={images.tabStories} />
 );
 
 const TabIconGridTrial = ({focused}: {focused: boolean}) => (
-  <TabItem
-    label="Game"
-    focused={focused}
-    source={require('../../rmmassets/rmmimgs/rmmtabfv.png')}
-  />
+  <TabItem label="Game" focused={focused} source={images.tabGame} />
 );
 
 const TabBarBg = () => <View pointerEvents="none" style={styles.tabBarFill} />;

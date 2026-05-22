@@ -13,6 +13,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Background from '../components/Background';
 import JudgeCard from '../components/JudgeCard';
 import {shareText} from '../uttils/share';
+import {images} from '../assets/images';
 
 type Judge = 'mike' | 'rico';
 type Verdict = 'terrible' | 'hilarious';
@@ -21,14 +22,14 @@ const judgeMeta = {
   mike: {
     name: 'Officer Mike',
     subtitle: 'Strict & Formal',
-    image: require('../../rmmassets/rmmimgs/robb1.png'),
-    imageResult: require('../../rmmassets/rmmimgs/terrible.png'),
+    image: images.robb1,
+    imageResult: images.happyJoke,
   },
   rico: {
     name: 'Slick Rico',
     subtitle: 'Wild & Unpredictable',
-    image: require('../../rmmassets/rmmimgs/robb2.png'),
-    imageResult: require('../../rmmassets/rmmimgs/happyjoke.png'),
+    image: images.robb2,
+    imageResult: images.terrible,
   },
 };
 
@@ -139,16 +140,14 @@ const RateJokeScreen = () => {
                 start={{x: 0.12, y: 0}}
                 end={{x: 0.9, y: 1}}
                 style={styles.shareGradient}>
-                <Image
-                  source={require('../../rmmassets/rmmimgs/shareicon.png')}
-                />
+                <Image source={images.shareIcon} />
                 <Text style={styles.shareText}>Share Result</Text>
               </LinearGradient>
             </Pressable>
             <Pressable
               style={styles.homeButton}
               onPress={() => navigation.navigate('JokesScreen' as never)}>
-              <Image source={require('../../rmmassets/rmmimgs/homeicon.png')} />
+              <Image source={images.homeIcon} />
             </Pressable>
           </View>
 
@@ -218,7 +217,7 @@ const RateJokeScreen = () => {
               !canSubmit && styles.disabledSubmitButton,
             ]}>
             <Image
-              source={require('../../rmmassets/rmmimgs/submiticon.png')}
+              source={images.submitIcon}
               tintColor={!canSubmit ? '#FFFFFF80' : '#FFFFFF'}
             />
             <Text

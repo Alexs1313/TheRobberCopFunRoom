@@ -10,7 +10,7 @@ export const officerGameJokes = [
   'Officer Mike loves donuts because every case needs a sweet ending.',
   'The police car started telling jokes. It had a great siren of humor.',
   'Why did the cop carry a notebook? To write down suspicious punchlines.',
-  'The officer joined a band because he already knew how to patrol the beat.',
+  'The officer joined a band because he already knew how to patrol the rhythm.',
 ];
 
 export const robberGameJokes = [
@@ -20,7 +20,7 @@ export const robberGameJokes = [
   'My escape plan was perfect until I forgot where I parked the getaway car.',
   'I stole a calendar yesterday. I got twelve months.',
   'The cop asked why I robbed the bakery. I told him I needed the dough.',
-  'I tried hiding from police in a clown costume. I was still the least funny person there.',
+  'I tried ducking away from police in a clown costume. I was still the least funny person there.',
   'The officer said I had the right to remain silent. That was hard because I wanted to explain my genius plan.',
   'I robbed a gym once. Turns out carrying all that equipment is actual exercise.',
   'The police caught me because I stopped for coffee during the chase. Priorities matter.',

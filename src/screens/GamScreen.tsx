@@ -11,8 +11,9 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import Background from '../components/Background';
 import {officerGameJokes, robberGameJokes} from '../data/game';
-import type {GamePlayer, GameRole} from '../types/content';
+import type {GameComedian, GameRole} from '../types/content';
 import {shareText} from '../uttils/share';
+import {images} from '../assets/images';
 
 type ScreenState =
   | 'intro'
@@ -27,49 +28,49 @@ const roleMeta = {
   officer: {
     label: 'Officer',
     emoji: '👮‍♂️',
-    image: require('../../rmmassets/rmmimgs/robb1.png'),
+    image: images.robb1,
     readyTitle: 'Officer — Sentence with Comedy!',
     timeupText: 'Great job, Officer! Now let Slick Rico have a turn.',
-    turnImage: require('../../rmmassets/rmmimgs/firstrobb.png'),
+    turnImage: images.firstRobb,
   },
   robber: {
     label: 'Robber',
     emoji: '🦹',
-    image: require('../../rmmassets/rmmimgs/robb2.png'),
+    image: images.robb2,
     readyTitle: 'Robber — Escape with Comedy!',
     timeupText: 'Great job, Robber! Now let Officer Mike have a turn.',
-    turnImage: require('../../rmmassets/rmmimgs/secrobb.png'),
+    turnImage: images.secRobb,
   },
 };
 
 const GameScreen = () => {
   const [screen, setScreen] = useState<ScreenState>('intro');
-  const [playerOneName, setPlayerOneName] = useState('');
-  const [playerTwoName, setPlayerTwoName] = useState('');
-  const [playerOneRole, setPlayerOneRole] = useState<GameRole>('officer');
+  const [comedianOneName, setComedianOneName] = useState('');
+  const [comedianTwoName, setComedianTwoName] = useState('');
+  const [comedianOneRole, setComedianOneRole] = useState<GameRole>('officer');
   const [turnIndex, setTurnIndex] = useState(0);
   const [jokeIndex, setJokeIndex] = useState(0);
   const [timer, setTimer] = useState(30);
   const [votes, setVotes] = useState([0, 0]);
 
-  const players = useMemo<GamePlayer[]>(() => {
-    const playerTwoRole: GameRole =
-      playerOneRole === 'officer' ? 'robber' : 'officer';
+  const comedians = useMemo<GameComedian[]>(() => {
+    const comedianTwoRole: GameRole =
+      comedianOneRole === 'officer' ? 'robber' : 'officer';
 
     return [
-      {name: playerOneName.trim() || 'Player 1', role: playerOneRole},
-      {name: playerTwoName.trim() || 'Player 2', role: playerTwoRole},
+      {name: comedianOneName.trim() || 'Comedian 1', role: comedianOneRole},
+      {name: comedianTwoName.trim() || 'Comedian 2', role: comedianTwoRole},
     ];
-  }, [playerOneName, playerOneRole, playerTwoName]);
+  }, [comedianOneName, comedianOneRole, comedianTwoName]);
 
-  const currentPlayer = players[turnIndex];
+  const currentComedian = comedians[turnIndex];
   const currentJokes =
-    currentPlayer.role === 'officer' ? officerGameJokes : robberGameJokes;
+    currentComedian.role === 'officer' ? officerGameJokes : robberGameJokes;
   const canStart =
-    playerOneName.trim().length > 0 && playerTwoName.trim().length > 0;
+    comedianOneName.trim().length > 0 && comedianTwoName.trim().length > 0;
   const progress = screen === 'vote' ? timer / 20 : timer / 30;
-  const winnerIndex = votes[0] === votes[1] ? 0 : votes[0] > votes[1] ? 0 : 1;
-  const winner = players[winnerIndex];
+  const championIndex = votes[0] === votes[1] ? 0 : votes[0] > votes[1] ? 0 : 1;
+  const champion = comedians[championIndex];
 
   useEffect(() => {
     if (screen !== 'play' && screen !== 'vote') {
@@ -133,7 +134,7 @@ const GameScreen = () => {
   const shareResult = async () => {
     shareText(
       'The Comedy Trial Verdict',
-      `🏆 Winner: ${winner.name}\n\nFinal score:\n${players[0].name}: ${votes[0]}\n${players[1].name}: ${votes[1]}`,
+      `🏆 Champion: ${champion.name}\n\nFinal score:\n${comedians[0].name}: ${votes[0]}\n${comedians[1].name}: ${votes[1]}`,
     );
   };
 
@@ -149,12 +150,9 @@ const GameScreen = () => {
     return (
       <Background>
         <View style={styles.introContainer}>
-          <Image
-            source={require('../../rmmassets/rmmimgs/comedyintro.png')}
-            style={styles.introImage}
-          />
+          <Image source={images.comedyIntro} style={styles.introImage} />
           <Text style={styles.introTitle}>The Comedy Trial</Text>
-          <Text style={styles.introSubtitle}>2-Player Showdown</Text>
+          <Text style={styles.introSubtitle}>2-side Showdown</Text>
 
           <LinearGradient
             colors={['#0745E733', 'rgba(12,21,115,0.3)']}
@@ -166,9 +164,9 @@ const GameScreen = () => {
               {[
                 ['👮‍♂️', 'Officer Mike tries to SENTENCE the robber'],
                 ['🦹', 'Slick Rico tries to ESCAPE justice'],
-                ['🎤', 'Each player gets 30 seconds to tell jokes'],
+                ['🎤', 'Each side gets 30 seconds to tell jokes'],
                 ['👥', 'The crowd votes on who was funniest'],
-                ['⚖️', 'Most votes wins the trial!'],
+                ['⚖️', 'The jury decides the verdict!'],
               ].map(([icon, text]) => (
                 <View key={text} style={styles.howRow}>
                   <View style={styles.howIcon}>
@@ -188,10 +186,8 @@ const GameScreen = () => {
               start={{x: 0.12, y: 0}}
               end={{x: 0.9, y: 1}}
               style={styles.primaryButton}>
-              <Image
-                source={require('../../rmmassets/rmmimgs/buttonicon.png')}
-              />
-              <Text style={styles.primaryButtonText}>Set Up Players</Text>
+              <Image source={images.buttonIcon} />
+              <Text style={styles.primaryButtonText}>Pick Your Side</Text>
             </LinearGradient>
           </Pressable>
         </View>
@@ -200,15 +196,15 @@ const GameScreen = () => {
   }
 
   if (screen === 'setup') {
-    const playerTwoRole = players[1].role;
+    const comedianTwoRole = comedians[1].role;
 
     return (
       <Background>
         <View style={styles.container}>
-          <Text style={styles.title}>Player Setup</Text>
+          <Text style={styles.title}>Set Up Sides</Text>
           <Text style={styles.subtitle}>Enter names and choose sides</Text>
 
-          <Text style={styles.yellowLabel}>PLAYER 1</Text>
+          <Text style={styles.yellowLabel}>SIDE 1</Text>
           <LinearGradient
             colors={['#0745E733', 'rgba(12,21,115,0.3)']}
             start={{x: 0, y: 0}}
@@ -216,16 +212,16 @@ const GameScreen = () => {
             style={styles.setupCard}>
             <View style={styles.cardInner}>
               <TextInput
-                value={playerOneName}
-                onChangeText={setPlayerOneName}
-                placeholder="Enter player 1 name..."
+                value={comedianOneName}
+                onChangeText={setComedianOneName}
+                placeholder="Enter name..."
                 placeholderTextColor="rgba(255,255,255,0.45)"
                 style={styles.nameInput}
               />
               <Text style={styles.chooseText}>Choose role:</Text>
               <View style={styles.roleRow}>
                 {(['officer', 'robber'] as GameRole[]).map(role => {
-                  const selected = playerOneRole === role;
+                  const selected = comedianOneRole === role;
 
                   return (
                     <Pressable
@@ -234,7 +230,7 @@ const GameScreen = () => {
                         styles.roleCard,
                         selected && styles.selectedRoleCard,
                       ]}
-                      onPress={() => setPlayerOneRole(role)}>
+                      onPress={() => setComedianOneRole(role)}>
                       <View style={styles.roleAvatar}>
                         <Image
                           source={roleMeta[role].image}
@@ -251,30 +247,30 @@ const GameScreen = () => {
             </View>
           </LinearGradient>
 
-          <Text style={styles.yellowLabel}>PLAYER 2</Text>
+          <Text style={styles.yellowLabel}>SIDE 2</Text>
           <LinearGradient
             colors={['rgba(126,34,206,0.35)', 'rgba(26,5,53,0.4)']}
             start={{x: 0, y: 0}}
             end={{x: 1, y: 1}}
-            style={[styles.setupCard, styles.playerTwoCard]}>
+            style={[styles.setupCard, styles.comedianTwoCard]}>
             <View style={styles.cardInner}>
               <TextInput
-                value={playerTwoName}
-                onChangeText={setPlayerTwoName}
-                placeholder="Enter player 2 name..."
+                value={comedianTwoName}
+                onChangeText={setComedianTwoName}
+                placeholder="Enter name..."
                 placeholderTextColor="rgba(255,255,255,0.45)"
                 style={styles.nameInput}
               />
               <View style={styles.assignedRole}>
                 <View style={styles.roleAvatar}>
                   <Image
-                    source={roleMeta[playerTwoRole].image}
+                    source={roleMeta[comedianTwoRole].image}
                     style={styles.roleAvatarImage}
                   />
                 </View>
                 <View>
                   <Text style={styles.roleName}>
-                    {roleMeta[playerTwoRole].label}
+                    {roleMeta[comedianTwoRole].label}
                   </Text>
                   <Text style={styles.assignedText}>
                     Assigned automatically
@@ -289,26 +285,26 @@ const GameScreen = () => {
               colors={['rgba(255,255,255,0.1)', 'rgba(255,215,0,0.08)']}
               start={{x: 0, y: 0}}
               end={{x: 1, y: 1}}
-              style={styles.playersPreview}>
-              <View style={styles.playersPreviewInner}>
-                <View style={styles.previewPlayer}>
+              style={styles.comediansPreview}>
+              <View style={styles.comediansPreviewInner}>
+                <View style={styles.previewComedian}>
                   <View style={styles.previewAvatarOfficer}>
                     <Image
-                      source={roleMeta[players[0].role].image}
+                      source={roleMeta[comedians[0].role].image}
                       style={styles.previewImage}
                     />
                   </View>
-                  <Text style={styles.previewName}>{players[0].name}</Text>
+                  <Text style={styles.previewName}>{comedians[0].name}</Text>
                 </View>
                 <Text style={styles.scaleIcon}>⚖️</Text>
-                <View style={styles.previewPlayer}>
+                <View style={styles.previewComedian}>
                   <View style={styles.previewAvatarRobber}>
                     <Image
-                      source={roleMeta[players[1].role].image}
+                      source={roleMeta[comedians[1].role].image}
                       style={styles.previewImage}
                     />
                   </View>
-                  <Text style={styles.previewName}>{players[1].name}</Text>
+                  <Text style={styles.previewName}>{comedians[1].name}</Text>
                 </View>
               </View>
             </LinearGradient>
@@ -342,17 +338,17 @@ const GameScreen = () => {
   }
 
   if (screen === 'ready') {
-    const meta = roleMeta[currentPlayer.role];
+    const meta = roleMeta[currentComedian.role];
 
     return (
       <Background>
         <View style={styles.readyContainer}>
           <Image source={meta.turnImage} style={styles.readyImage} />
-          <Text style={styles.readyTitle}>{currentPlayer.name}'s Turn!</Text>
+          <Text style={styles.readyTitle}>{currentComedian.name}'s Turn!</Text>
           <Text
             style={[
               styles.readySubtitle,
-              currentPlayer.role === 'officer'
+              currentComedian.role === 'officer'
                 ? styles.readySubtitleOfficer
                 : styles.readySubtitleRobber,
             ]}>
@@ -360,7 +356,7 @@ const GameScreen = () => {
           </Text>
           <Text style={styles.readyText}>
             You'll have 30 seconds to read jokes. Pass the phone to{' '}
-            {currentPlayer.name}!
+            {currentComedian.name}!
           </Text>
           <View style={styles.tipBox}>
             <Text style={styles.tipText}>
@@ -371,7 +367,7 @@ const GameScreen = () => {
           <Pressable onPress={startTurn} style={styles.fullWidth}>
             <LinearGradient
               colors={
-                currentPlayer.role === 'officer'
+                currentComedian.role === 'officer'
                   ? ['#0745E7', '#0C1573']
                   : ['#A855F7', '#581C87']
               }
@@ -391,12 +387,12 @@ const GameScreen = () => {
       <Background>
         <View style={styles.playContainer}>
           <View style={styles.playHeader}>
-            <View style={styles.playerHeader}>
-              <Text style={styles.playerHeaderEmoji}>
-                {roleMeta[currentPlayer.role].emoji}
+            <View style={styles.comedianHeader}>
+              <Text style={styles.comedianHeaderEmoji}>
+                {roleMeta[currentComedian.role].emoji}
               </Text>
               <View>
-                <Text style={styles.playName}>{currentPlayer.name}</Text>
+                <Text style={styles.playName}>{currentComedian.name}</Text>
                 <Text style={styles.playCount}>
                   {jokeIndex + 1} of {currentJokes.length}
                 </Text>
@@ -440,9 +436,7 @@ const GameScreen = () => {
               onPress={() =>
                 setJokeIndex(prevIndex => Math.max(prevIndex - 1, 0))
               }>
-              <Image
-                source={require('../../rmmassets/rmmimgs/backarrww.png')}
-              />
+              <Image source={images.backArrowWide} />
             </Pressable>
             <Pressable
               style={styles.nextJokeButton}
@@ -457,9 +451,7 @@ const GameScreen = () => {
                 end={{x: 0.9, y: 1}}
                 style={styles.nextJokeGradient}>
                 <Text style={styles.primaryButtonText}>Next Joke</Text>
-                <Image
-                  source={require('../../rmmassets/rmmimgs/arrowright.png')}
-                />
+                <Image source={images.arrowRight} />
               </LinearGradient>
             </Pressable>
           </View>
@@ -473,12 +465,12 @@ const GameScreen = () => {
       <Background>
         <View style={styles.timeupContainer}>
           <View style={styles.playHeader}>
-            <View style={styles.playerHeader}>
-              <Text style={styles.playerHeaderEmoji}>
-                {roleMeta[currentPlayer.role].emoji}
+            <View style={styles.comedianHeader}>
+              <Text style={styles.comedianHeaderEmoji}>
+                {roleMeta[currentComedian.role].emoji}
               </Text>
               <View>
-                <Text style={styles.playName}>{currentPlayer.name}</Text>
+                <Text style={styles.playName}>{currentComedian.name}</Text>
                 <Text style={styles.playCount}>
                   {currentJokes.length} of {currentJokes.length}
                 </Text>
@@ -496,7 +488,7 @@ const GameScreen = () => {
             <Text style={styles.alarmEmoji}>⏰</Text>
             <Text style={styles.timeupTitle}>Time's Up!</Text>
             <Text style={styles.timeupText}>
-              {roleMeta[currentPlayer.role].timeupText}
+              {roleMeta[currentComedian.role].timeupText}
             </Text>
           </View>
 
@@ -508,7 +500,7 @@ const GameScreen = () => {
               style={styles.primaryButton}>
               <Text style={styles.primaryButtonText}>
                 {turnIndex === 0
-                  ? `${roleMeta[players[1].role].label}'s Turn →`
+                  ? `${roleMeta[comedians[1].role].label}'s Turn →`
                   : 'Start Jury Votes →'}
               </Text>
             </LinearGradient>
@@ -540,14 +532,14 @@ const GameScreen = () => {
             />
           </View>
 
-          {players.map((player, index) => {
-            const meta = roleMeta[player.role];
+          {comedians.map((comedian, index) => {
+            const meta = roleMeta[comedian.role];
 
             return (
-              <Pressable key={player.role} onPress={() => addVote(index)}>
+              <Pressable key={comedian.role} onPress={() => addVote(index)}>
                 <LinearGradient
                   colors={
-                    player.role === 'officer'
+                    comedian.role === 'officer'
                       ? ['#0745E733', 'rgba(12,21,115,0.3)']
                       : ['rgba(126,34,206,0.35)', 'rgba(26,5,53,0.4)']
                   }
@@ -557,7 +549,7 @@ const GameScreen = () => {
                   <View style={styles.voteCardInner}>
                     <Image source={meta.turnImage} style={styles.voteImage} />
 
-                    <Text style={styles.voteName}>{player.name}</Text>
+                    <Text style={styles.voteName}>{comedian.name}</Text>
                     <Text style={styles.voteRole}>{meta.label}</Text>
                     <View style={styles.votePill}>
                       <Text style={styles.votePillScore}>{votes[index]}</Text>
@@ -590,42 +582,42 @@ const GameScreen = () => {
           colors={['#0745E733', 'rgba(12,21,115,0.3)']}
           start={{x: 0, y: 0}}
           end={{x: 1, y: 1}}
-          style={styles.winnerCard}>
-          <View style={styles.winnerCardInner}>
-            <View style={styles.winnerAvatar}>
+          style={styles.championCard}>
+          <View style={styles.championCardInner}>
+            <View style={styles.championAvatar}>
               <Image
-                source={roleMeta[winner.role].image}
-                style={styles.winnerImage}
+                source={roleMeta[champion.role].image}
+                style={styles.championImage}
               />
             </View>
-            <View style={styles.winnerBadge}>
-              <Text style={styles.winnerBadgeText}>🏆 WINNER</Text>
+            <View style={styles.championBadge}>
+              <Text style={styles.championBadgeText}>🏆 CHAMPION</Text>
             </View>
-            <Text style={styles.winnerName}>{winner.name}</Text>
-            <Text style={styles.winnerText}>
-              {winner.role === 'officer'
+            <Text style={styles.championName}>{champion.name}</Text>
+            <Text style={styles.championText}>
+              {champion.role === 'officer'
                 ? 'Justice prevails! The robber goes to jail 🔒'
-                : 'Comedy escapes! The robber walks free 🗝'}
+                : 'Comedy escapes! The robber slips away victorious 🗝'}
             </Text>
           </View>
         </LinearGradient>
 
         <View style={styles.scoreCard}>
           <Text style={styles.yellowLabel}>FINAL SCORE</Text>
-          {players.map((player, index) => {
+          {comedians.map((comedian, index) => {
             const maxVotes = Math.max(...votes, 1);
             const width = `${(votes[index] / maxVotes) * 100}%` as `${number}%`;
 
             return (
-              <View key={player.role} style={styles.scoreRow}>
+              <View key={comedian.role} style={styles.scoreRow}>
                 <View style={styles.scoreNameRow}>
                   <Text style={styles.scoreName}>
-                    {roleMeta[player.role].emoji} {player.name}
+                    {roleMeta[comedian.role].emoji} {comedian.name}
                   </Text>
                   <Text
                     style={[
                       styles.scoreValue,
-                      player.role === 'robber' && styles.robberScoreValue,
+                      comedian.role === 'robber' && styles.robberScoreValue,
                     ]}>
                     {votes[index]}
                   </Text>
@@ -634,7 +626,7 @@ const GameScreen = () => {
                   <View
                     style={[
                       styles.scoreFill,
-                      player.role === 'robber' && styles.robberScoreFill,
+                      comedian.role === 'robber' && styles.robberScoreFill,
                       {width},
                     ]}
                   />
@@ -651,9 +643,7 @@ const GameScreen = () => {
               start={{x: 0.12, y: 0}}
               end={{x: 0.9, y: 1}}
               style={styles.resultActionGradient}>
-              <Image
-                source={require('../../rmmassets/rmmimgs/shareicon.png')}
-              />
+              <Image source={images.shareIcon} />
               <Text style={styles.primaryButtonText}>Share</Text>
             </LinearGradient>
           </Pressable>
@@ -795,7 +785,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(127,168,255,0.25)',
     borderRadius: 14,
   },
-  playerTwoCard: {
+  comedianTwoCard: {
     borderColor: 'rgba(217,70,239,0.35)',
   },
   nameInput: {
@@ -867,20 +857,20 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 16,
   },
-  playersPreview: {
+  comediansPreview: {
     marginTop: 20,
     borderWidth: 1,
     borderColor: 'rgba(255,215,0,0.32)',
     borderRadius: 14,
   },
-  playersPreviewInner: {
+  comediansPreviewInner: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 10,
     padding: 14,
   },
-  previewPlayer: {
+  previewComedian: {
     alignItems: 'center',
   },
   previewAvatarOfficer: {
@@ -984,11 +974,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  playerHeader: {
+  comedianHeader: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  playerHeaderEmoji: {
+  comedianHeaderEmoji: {
     marginRight: 10,
     fontSize: 22,
   },
@@ -1248,7 +1238,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     textAlign: 'center',
   },
-  winnerCard: {
+  championCard: {
     alignItems: 'center',
     marginTop: 26,
 
@@ -1256,11 +1246,11 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(127,168,255,0.3)',
     borderRadius: 20,
   },
-  winnerCardInner: {
+  championCardInner: {
     alignItems: 'center',
     padding: 20,
   },
-  winnerAvatar: {
+  championAvatar: {
     alignItems: 'center',
     justifyContent: 'center',
     width: 74,
@@ -1269,13 +1259,13 @@ const styles = StyleSheet.create({
     borderRadius: 37,
     backgroundColor: 'rgba(127,168,255,0.25)',
   },
-  winnerImage: {
+  championImage: {
     width: 50,
     height: 80,
     top: 8,
     resizeMode: 'contain',
   },
-  winnerBadge: {
+  championBadge: {
     marginTop: 14,
     paddingHorizontal: 22,
     paddingVertical: 8,
@@ -1284,20 +1274,20 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     backgroundColor: 'rgba(255,215,0,0.14)',
   },
-  winnerBadgeText: {
+  championBadgeText: {
     color: '#FFD700',
     fontSize: 12,
     fontWeight: '900',
     letterSpacing: 0.8,
   },
-  winnerName: {
+  championName: {
     marginTop: 14,
     color: '#FFFFFF',
     fontSize: 24,
     lineHeight: 32,
     fontWeight: '700',
   },
-  winnerText: {
+  championText: {
     marginTop: 8,
     color: '#7FA8FF',
     fontSize: 14,

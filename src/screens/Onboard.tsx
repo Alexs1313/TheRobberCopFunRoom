@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Background from '../components/Background';
+import {images} from '../assets/images';
 
 type OnboardItem = {
   image: ImageSourcePropType;
@@ -21,7 +22,7 @@ type OnboardItem = {
 
 const onboardItems: OnboardItem[] = [
   {
-    image: require('../../rmmassets/rmmimgs/onboard1.png'),
+    image: images.onboard1,
     imageWidth: 356,
     title: 'Welcome to Joke Court!',
     subtitle: 'Where Laughter is the Law',
@@ -29,36 +30,36 @@ const onboardItems: OnboardItem[] = [
       "Officer Mike and Slick Rico face off in the ultimate comedy showdown. Pick a side, tell your jokes, and let the jury decide — who's the funniest in the land?",
   },
   {
-    image: require('../../rmmassets/rmmimgs/onboard2.png'),
+    image: images.onboard2,
     imageWidth: 311,
     title: 'Jokes Arsenal',
     subtitle: 'Choose Your Side',
     description:
-      "Browse hilarious jokes from Officer Mike's police department or Slick Rico's criminal crew. Browse by category, go random, or save your favorites to revisit anytime.",
+      "Browse hilarious jokes from Officer Mike's police department or Slick Rico's criminal crew. Browse by category, use shuffle, or save your favorites to revisit anytime.",
   },
   {
-    image: require('../../rmmassets/rmmimgs/onboard3.png'),
+    image: images.onboard3,
     imageWidth: 345,
     title: 'Epic Tales',
     subtitle: "Stories That'll Make You LOL",
     description:
-      "Dive into wild adventures from the crime world. Mark your favorites — they'll always sit at the top. Whether it's Mike's donut investigations or Rico's botched heists, every story delivers.",
+      "Dive into wild adventures from the crime world. Mark your favorites — they'll always rise to the front. Whether it's Mike's donut investigations or Rico's botched heists, every story delivers.",
   },
   {
-    image: require('../../rmmassets/rmmimgs/onboard4.png'),
+    image: images.onboard4,
     imageWidth: 344,
     title: 'Comedy Judge',
     subtitle: 'Is Your Joke Guilty of Being Funny?',
     description:
-      "Write your best joke, then choose your judge — Officer Mike or Slick Rico. They'll deliver a verdict on the spot. Share your result and see if you have what it takes.",
+      "Write your funniest joke, then choose your judge — Officer Mike or Slick Rico. They'll deliver a verdict on the spot. Share your result and see if you have what it takes.",
   },
   {
-    image: require('../../rmmassets/rmmimgs/onboard5.png'),
+    image: images.onboard5,
     imageWidth: 350,
     title: 'The Trial',
-    subtitle: '2-Player Comedy Showdown',
+    subtitle: '2-Comedian Comedy Showdown',
     description:
-      'The courtroom is in session! One player takes the role of the cop, the other the robber. Each has 30 seconds to tell jokes. The crowd votes — the funniest walks free. Are you ready?',
+      'The courtroom is in session! One comedian takes the role of the cop, the other the robber. Each has 30 seconds to tell jokes. The crowd votes — the funniest takes the crown. Are you ready?',
   },
 ];
 
@@ -102,7 +103,7 @@ const Onboard = () => {
           <Text style={styles.title}>{currentItem.title}</Text>
           <Text style={styles.subtitle}>{currentItem.subtitle}</Text>
           <Image
-            source={require('../../rmmassets/rmmimgs/underline.png')}
+            source={images.underline}
             style={styles.underline}
           />
           <Text style={styles.description}>{currentItem.description}</Text>
@@ -129,7 +130,7 @@ const Onboard = () => {
               </Text>
               {!isLast && (
                 <Image
-                  source={require('../../rmmassets/rmmimgs/arrowright.png')}
+                  source={images.arrowRight}
                 />
               )}
             </LinearGradient>

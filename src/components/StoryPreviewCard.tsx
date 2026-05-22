@@ -2,6 +2,8 @@ import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
+import {images} from '../assets/images';
+
 type StoryPreviewCardProps = {
   title: string;
   preview: string;
@@ -34,11 +36,7 @@ const StoryPreviewCard = ({
           style={[styles.heartButton, isLiked && styles.likedButton]}
           onPress={onToggleLike}>
           <Image
-            source={
-              isLiked
-                ? require('../../rmmassets/rmmimgs/stoorylikerd.png')
-                : require('../../rmmassets/rmmimgs/storylike.png')
-            }
+            source={isLiked ? images.storyLiked : images.storyLike}
           />
         </Pressable>
 

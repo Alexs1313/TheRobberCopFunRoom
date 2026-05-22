@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
+import {images} from '../assets/images';
+
 type JokeCardProps = {
   author: string;
   authorColor?: string;
@@ -50,18 +52,14 @@ const JokeCard = ({
 
         <View style={styles.actionRow}>
           <Pressable style={styles.actionButton} onPress={onShare}>
-            <Image source={require('../../rmmassets/rmmimgs/share.png')} />
+            <Image source={images.share} />
             <Text style={styles.actionText}>Share</Text>
           </Pressable>
           <Pressable
             style={[styles.actionButton, isSaved && styles.savedButton]}
             onPress={onToggleSaved}>
             <Image
-              source={
-                isSaved
-                  ? require('../../rmmassets/rmmimgs/saveed.png')
-                  : require('../../rmmassets/rmmimgs/savee.png')
-              }
+              source={isSaved ? images.saved : images.save}
             />
             <Text style={[styles.actionText, isSaved && styles.savedText]}>
               {isSaved ? 'Saved' : 'Save'}

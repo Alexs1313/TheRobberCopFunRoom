@@ -10,6 +10,7 @@ import {jokes} from '../data/jokes';
 import type {Joke, JokeSide} from '../types/content';
 import {SAVED_JOKES_STORAGE_KEY} from '../uttils/storage';
 import {shareText} from '../uttils/share';
+import {images} from '../assets/images';
 
 type SavedFilter = 'all' | JokeSide;
 
@@ -19,14 +20,14 @@ const sideMeta = {
     eyebrow: 'OFFICER MIKE',
     emoji: '👮‍♂️',
     accent: '#7FA8FF',
-    image: require('../../rmmassets/rmmimgs/robb1.png'),
+    image: images.robb1,
   },
   robber: {
     title: "Slick Rico's Jokes",
     eyebrow: 'SLICK RICO',
     emoji: '🦹',
     accent: '#C084FC',
-    image: require('../../rmmassets/rmmimgs/robb2.png'),
+    image: images.robb2,
   },
 };
 
@@ -141,7 +142,7 @@ const SavedScreen = () => {
         {savedJokes.length === 0 ? (
           <View style={styles.emptyWrap}>
             <Image
-              source={require('../../rmmassets/rmmimgs/savedintroImg.png')}
+              source={images.savedIntro}
               style={styles.emptyImage}
             />
             <Text style={styles.emptyTitle}>No saved jokes yet</Text>

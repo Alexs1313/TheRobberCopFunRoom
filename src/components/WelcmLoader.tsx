@@ -5,11 +5,10 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-
 import React, {useEffect} from 'react';
-
 import {useNavigation} from '@react-navigation/native';
 import WebView from 'react-native-webview';
+import {images} from '../assets/images';
 
 const htmlLoader = `<!DOCTYPE html>
 <html>
@@ -106,14 +105,12 @@ const WelcmLoader = () => {
   }, [navigation]);
 
   return (
-    <ImageBackground
-      source={require('../../rmmassets/rmmimgs/rmmloaderback.png')}
-      style={styles.imageBg}>
+    <ImageBackground source={images.loaderBack} style={styles.imageBg}>
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Image source={require('../../rmmassets/rmmimgs/rmmloadelogo.png')} />
+          <Image source={images.loaderLogo} />
         </View>
         <View style={styles.bottomWrap}>
           <WebView

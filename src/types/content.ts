@@ -14,7 +14,7 @@ export type Story = {
 
 export type GameRole = 'officer' | 'robber';
 
-export type GamePlayer = {
+export type GameComedian = {
   name: string;
   role: GameRole;
 };
