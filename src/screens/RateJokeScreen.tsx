@@ -23,13 +23,13 @@ const judgeMeta = {
     name: 'Officer Mike',
     subtitle: 'Strict & Formal',
     image: images.robb1,
-    imageResult: images.happyJoke,
+    imageResult: images.terrible,
   },
   rico: {
     name: 'Slick Rico',
     subtitle: 'Wild & Unpredictable',
     image: images.robb2,
-    imageResult: images.terrible,
+    imageResult: images.happyJoke,
   },
 };
 
