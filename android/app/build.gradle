@@ -77,9 +77,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.therobbercopfunroom"
+    namespace "com.copcourtroomrobberfun"
     defaultConfig {
-        applicationId "com.therobbercopfunroom"
+        applicationId "com.copcourtroomrobberfun"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

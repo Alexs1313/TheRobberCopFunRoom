@@ -254,7 +254,6 @@ const styles = StyleSheet.create({
     height: 116,
     paddingHorizontal: 16,
     paddingTop: 34,
-    backgroundColor: 'rgba(4,8,43,0.58)',
   },
   backButton: {
     alignItems: 'center',

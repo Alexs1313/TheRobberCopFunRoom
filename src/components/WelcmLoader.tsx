@@ -110,7 +110,10 @@ const WelcmLoader = () => {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}>
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Image source={images.loaderLogo} />
+          <Image
+            source={images.loaderLogo}
+            style={{width: 200, height: 200, borderRadius: 50}}
+          />
         </View>
         <View style={styles.bottomWrap}>
           <WebView

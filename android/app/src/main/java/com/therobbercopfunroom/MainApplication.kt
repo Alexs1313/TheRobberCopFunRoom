@@ -1,4 +1,4 @@
-package com.therobbercopfunroom
+package com.copcourtroomrobberfun
 
 import android.app.Application
 import com.facebook.react.PackageList

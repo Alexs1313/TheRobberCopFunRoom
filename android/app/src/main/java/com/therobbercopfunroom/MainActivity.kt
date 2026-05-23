@@ -1,4 +1,4 @@
-package com.therobbercopfunroom
+package com.copcourtroomrobberfun
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

@@ -13,7 +13,7 @@ const Background = ({
 }) => {
   return (
     <LinearGradient
-      colors={[colors.backgroundTop, colors.backgroundBottom]}
+      colors={['rgb(16, 30, 152)', 'rgb(4, 1, 25)']}
       style={styles.background}>
       <ScrollView
         bounces={bounce}
