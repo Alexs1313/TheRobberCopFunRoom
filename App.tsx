@@ -1,11 +1,11 @@
 import {NavigationContainer} from '@react-navigation/native';
 
-import StackRoutes from './src/navigation/StackRoutes.tsx';
+import VerdictStackRoutes from './src/navigation/VerdictStackRoutes.tsx';
 
 const App = () => {
   return (
     <NavigationContainer>
-      <StackRoutes />
+      <VerdictStackRoutes />
     </NavigationContainer>
   );
 };

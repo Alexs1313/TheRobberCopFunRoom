@@ -2,9 +2,9 @@ import React from 'react';
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import {images} from '../assets/images';
+import {images} from '../assets/loungeVisuals';
 
-type StoryPreviewCardProps = {
+type TaleTeaserProps = {
   title: string;
   preview: string;
   isLiked: boolean;
@@ -12,44 +12,49 @@ type StoryPreviewCardProps = {
   onRead: () => void;
 };
 
-const StoryPreviewCard = ({
+const ChronicleTeaser = ({
   title,
   preview,
   isLiked,
   onToggleLike,
   onRead,
-}: StoryPreviewCardProps) => {
+}: TaleTeaserProps) => {
   return (
     <LinearGradient
       colors={['#0745E733', 'rgba(12,21,115,0.3)']}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
-      style={styles.card}>
-      <View style={styles.inner}>
+      style={taleTeaserSheet.chroniclePanel}>
+      <View style={taleTeaserSheet.chroniclePad}>
         <LinearGradient
           colors={['#0745E7', '#7FA8FF']}
           start={{x: 0, y: 0}}
           end={{x: 1, y: 0}}
-          style={styles.topGlow}
+          style={taleTeaserSheet.chronicleCrown}
         />
         <Pressable
-          style={[styles.heartButton, isLiked && styles.likedButton]}
+          style={[
+            taleTeaserSheet.heartSigil,
+            isLiked && taleTeaserSheet.heartSigilLit,
+          ]}
           onPress={onToggleLike}>
           <Image
             source={isLiked ? images.storyLiked : images.storyLike}
           />
         </Pressable>
 
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.previewText}>{preview}</Text>
+        <Text style={taleTeaserSheet.chronicleHeadline}>{title}</Text>
+        <Text style={taleTeaserSheet.chronicleExcerpt}>{preview}</Text>
 
         <Pressable onPress={onRead}>
           <LinearGradient
             colors={['#0745E766', '#0C157380']}
             start={{x: 0.12, y: 0}}
             end={{x: 0.9, y: 1}}
-            style={styles.readButton}>
-            <Text style={styles.readButtonText}>{'Read Full Story \u2192'}</Text>
+            style={taleTeaserSheet.chronicleCta}>
+            <Text style={taleTeaserSheet.chronicleCtaCopy}>
+              {'Read Full Story \u2192'}
+            </Text>
           </LinearGradient>
         </Pressable>
       </View>
@@ -57,8 +62,8 @@ const StoryPreviewCard = ({
   );
 };
 
-const styles = StyleSheet.create({
-  card: {
+const taleTeaserSheet = StyleSheet.create({
+  chroniclePanel: {
     minHeight: 204,
     marginTop: 22,
     borderWidth: 1,
@@ -66,10 +71,10 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     overflow: 'hidden',
   },
-  inner: {
+  chroniclePad: {
     padding: 20,
   },
-  topGlow: {
+  chronicleCrown: {
     position: 'absolute',
     top: 0,
     left: 0,
@@ -77,7 +82,7 @@ const styles = StyleSheet.create({
     height: 3,
     backgroundColor: '#0745E7',
   },
-  heartButton: {
+  heartSigil: {
     position: 'absolute',
     top: 18,
     right: 16,
@@ -88,12 +93,12 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: 'rgba(255,255,255,0.08)',
   },
-  likedButton: {
+  heartSigilLit: {
     borderWidth: 1,
     borderColor: 'rgba(255,215,0,0.25)',
     backgroundColor: 'rgba(255,215,0,0.16)',
   },
-  title: {
+  chronicleHeadline: {
     maxWidth: 286,
     marginTop: 12,
     color: '#FFFFFF',
@@ -101,13 +106,13 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     fontWeight: '800',
   },
-  previewText: {
+  chronicleExcerpt: {
     marginTop: 14,
     color: 'rgba(255,255,255,0.62)',
     fontSize: 15,
     lineHeight: 22,
   },
-  readButton: {
+  chronicleCta: {
     alignItems: 'center',
     justifyContent: 'center',
     height: 42,
@@ -116,7 +121,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(127,168,255,0.25)',
     borderRadius: 14,
   },
-  readButtonText: {
+  chronicleCtaCopy: {
     color: '#FFFFFF',
     fontSize: 15,
     lineHeight: 22,
@@ -124,4 +129,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StoryPreviewCard;
+export default ChronicleTeaser;

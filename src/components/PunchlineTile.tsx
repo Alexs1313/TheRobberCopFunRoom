@@ -9,9 +9,9 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import {images} from '../assets/images';
+import {images} from '../assets/loungeVisuals';
 
-type JokeCardProps = {
+type PunchlineTileProps = {
   author: string;
   authorColor?: string;
   authorImage: ImageSourcePropType;
@@ -22,7 +22,7 @@ type JokeCardProps = {
   minHeight?: number;
 };
 
-const JokeCard = ({
+const PunchlineTile = ({
   author,
   authorColor = '#7FA8FF',
   authorImage,
@@ -31,37 +31,44 @@ const JokeCard = ({
   onShare,
   onToggleSaved,
   minHeight = 184,
-}: JokeCardProps) => {
+}: PunchlineTileProps) => {
   return (
     <LinearGradient
       colors={['#0745E733', 'rgba(12,21,115,0.3)']}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
-      style={[styles.card, {minHeight}]}>
-      <View style={styles.inner}>
-        <View style={styles.authorRow}>
-          <View style={styles.avatar}>
-            <Image source={authorImage} style={styles.avatarImage} />
+      style={[punchlineTileSheet.witPanel, {minHeight}]}>
+      <View style={punchlineTileSheet.witPad}>
+        <View style={punchlineTileSheet.comedianRail}>
+          <View style={punchlineTileSheet.comedianSeal}>
+            <Image source={authorImage} style={punchlineTileSheet.comedianPortrait} />
           </View>
-          <Text style={[styles.authorText, {color: authorColor}]}>
+          <Text style={[punchlineTileSheet.comedianTag, {color: authorColor}]}>
             {author}
           </Text>
         </View>
 
-        <Text style={styles.jokeText}>{text}</Text>
+        <Text style={punchlineTileSheet.witBodyCopy}>{text}</Text>
 
-        <View style={styles.actionRow}>
-          <Pressable style={styles.actionButton} onPress={onShare}>
+        <View style={punchlineTileSheet.witActionRail}>
+          <Pressable style={punchlineTileSheet.witActionChip} onPress={onShare}>
             <Image source={images.share} />
-            <Text style={styles.actionText}>Share</Text>
+            <Text style={punchlineTileSheet.witActionLabel}>Share</Text>
           </Pressable>
           <Pressable
-            style={[styles.actionButton, isSaved && styles.savedButton]}
+            style={[
+              punchlineTileSheet.witActionChip,
+              isSaved && punchlineTileSheet.witActionChipMarked,
+            ]}
             onPress={onToggleSaved}>
             <Image
               source={isSaved ? images.saved : images.save}
             />
-            <Text style={[styles.actionText, isSaved && styles.savedText]}>
+            <Text
+              style={[
+                punchlineTileSheet.witActionLabel,
+                isSaved && punchlineTileSheet.witActionLabelMarked,
+              ]}>
               {isSaved ? 'Saved' : 'Save'}
             </Text>
           </Pressable>
@@ -71,22 +78,22 @@ const JokeCard = ({
   );
 };
 
-const styles = StyleSheet.create({
-  card: {
+const punchlineTileSheet = StyleSheet.create({
+  witPanel: {
     marginTop: 16,
     borderWidth: 1,
     borderColor: 'rgba(127,168,255,0.25)',
     borderRadius: 16,
     overflow: 'hidden',
   },
-  inner: {
+  witPad: {
     padding: 20,
   },
-  authorRow: {
+  comedianRail: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  avatar: {
+  comedianSeal: {
     alignItems: 'center',
     justifyContent: 'center',
     width: 30,
@@ -98,28 +105,28 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: 'rgba(127,168,255,0.25)',
   },
-  avatarImage: {
+  comedianPortrait: {
     width: 20,
     height: 33,
     top: 3,
   },
-  authorText: {
+  comedianTag: {
     fontSize: 12,
     lineHeight: 16,
     fontWeight: '700',
     letterSpacing: 0.6,
   },
-  jokeText: {
+  witBodyCopy: {
     marginTop: 14,
     color: '#FFFFFF',
     fontSize: 15,
     lineHeight: 24,
   },
-  actionRow: {
+  witActionRail: {
     flexDirection: 'row',
     marginTop: 16,
   },
-  actionButton: {
+  witActionChip: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -133,19 +140,19 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     backgroundColor: 'rgba(255,255,255,0.08)',
   },
-  savedButton: {
+  witActionChipMarked: {
     borderColor: 'rgba(255,215,0,0.75)',
     backgroundColor: 'rgba(255,215,0,0.12)',
   },
-  actionText: {
+  witActionLabel: {
     color: 'rgba(255,255,255,0.7)',
     fontSize: 12,
     lineHeight: 16,
     fontWeight: '700',
   },
-  savedText: {
+  witActionLabelMarked: {
     color: '#FFD700',
   },
 });
 
-export default JokeCard;
+export default PunchlineTile;

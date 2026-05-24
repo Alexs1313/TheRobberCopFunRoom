@@ -1,4 +1,4 @@
-export type JokeSide = 'police' | 'robber';
+export type JokeSide = 'stellar' | 'comet';
 
 export type Joke = {
   id: string;
@@ -12,7 +12,7 @@ export type Story = {
   paragraphs: string[];
 };
 
-export type GameRole = 'officer' | 'robber';
+export type GameRole = 'host' | 'guest';
 
 export type GameComedian = {
   name: string;

@@ -1,9 +1,9 @@
 import React from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {colors} from '../themme/colors';
+import {colors} from '../palette/verdictPalette';
 
-const Background = ({
+const VerdictCanvas = ({
   children,
   bounce = true,
 }: {
@@ -14,10 +14,10 @@ const Background = ({
   return (
     <LinearGradient
       colors={[colors.backgroundTop, colors.backgroundBottom]}
-      style={styles.background}>
+      style={courtroomCanvasSheet.verdictBackdrop}>
       <ScrollView
         bounces={bounce}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={courtroomCanvasSheet.scrollArena}
         showsVerticalScrollIndicator={false}>
         {children}
       </ScrollView>
@@ -25,16 +25,16 @@ const Background = ({
   );
 };
 
-const styles = StyleSheet.create({
-  background: {
+const courtroomCanvasSheet = StyleSheet.create({
+  verdictBackdrop: {
     flex: 1,
   },
-  scrollContent: {
+  scrollArena: {
     flexGrow: 1,
   },
-  fill: {
+  stretchFill: {
     flex: 1,
   },
 });
 
-export default Background;
+export default VerdictCanvas;

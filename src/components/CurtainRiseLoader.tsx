@@ -8,7 +8,7 @@ import {
 import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import WebView from 'react-native-webview';
-import {images} from '../assets/images';
+import {images} from '../assets/loungeVisuals';
 
 const htmlLoader = `<!DOCTYPE html>
 <html>
@@ -91,33 +91,38 @@ const htmlLoader = `<!DOCTYPE html>
 </body>
 </html>`;
 
-const WelcmLoader = () => {
-  const navigation = useNavigation();
+const CurtainRiseLoader = () => {
+  const loungeNavigator = useNavigation();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      navigation.navigate('Onboard' as never);
-    }, 6023);
+    const curtainTimer = setTimeout(() => {
+      loungeNavigator.navigate('Onboard' as never);
+    }, 6013);
 
     return () => {
-      clearTimeout(timer);
+      clearTimeout(curtainTimer);
     };
-  }, [navigation]);
+  }, [loungeNavigator]);
 
   return (
-    <ImageBackground source={images.loaderBack} style={styles.imageBg}>
+    <ImageBackground
+      source={images.loaderBack}
+      style={curtainRiseSheet.velvetStage}>
       <ScrollView
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={curtainRiseSheet.scrollArena}
         showsVerticalScrollIndicator={false}>
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Image source={images.loaderLogo} />
+        <View style={curtainRiseSheet.logoAnchor}>
+          <Image
+            source={images.loaderLogo}
+            style={{width: 250, height: 250, borderRadius: 52}}
+          />
         </View>
-        <View style={styles.bottomWrap}>
+        <View style={curtainRiseSheet.spinnerDock}>
           <WebView
             source={{html: htmlLoader}}
             scrollEnabled={false}
             originWhitelist={['*']}
-            style={{width: 260, height: 90, backgroundColor: 'transparent'}}
+            style={curtainRiseSheet.spinnerFrame}
           />
         </View>
       </ScrollView>
@@ -125,20 +130,29 @@ const WelcmLoader = () => {
   );
 };
 
-export default WelcmLoader;
+export default CurtainRiseLoader;
 
-const styles = StyleSheet.create({
-  imageBg: {
+const curtainRiseSheet = StyleSheet.create({
+  velvetStage: {
     flex: 1,
   },
-  scrollContent: {
+  scrollArena: {
     flexGrow: 1,
   },
-
-  bottomWrap: {
+  logoAnchor: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  spinnerDock: {
     position: 'absolute',
     bottom: 0,
     alignSelf: 'center',
     paddingBottom: 40,
+  },
+  spinnerFrame: {
+    width: 260,
+    height: 90,
+    backgroundColor: 'transparent',
   },
 });

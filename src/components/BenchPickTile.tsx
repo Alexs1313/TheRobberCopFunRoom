@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 
-type JudgeCardProps = {
+type VerdictBenchProps = {
   name: string;
   subtitle: string;
   image: ImageSourcePropType;
@@ -17,34 +17,36 @@ type JudgeCardProps = {
   onPress: () => void;
 };
 
-const JudgeCard = ({
+const BenchPickTile = ({
   name,
   subtitle,
   image,
   selected,
   subtitleColor = '#AFC6FF',
   onPress,
-}: JudgeCardProps) => {
+}: VerdictBenchProps) => {
   return (
     <Pressable
-      style={[styles.card, selected && styles.selectedCard]}
+      style={[benchPickSheet.jurorTile, selected && benchPickSheet.jurorTileLit]}
       onPress={onPress}>
-      <View style={styles.avatar}>
-        <Image source={image} style={styles.image} />
+      <View style={benchPickSheet.jurorSeal}>
+        <Image source={image} style={benchPickSheet.jurorPortrait} />
       </View>
       {selected && (
-        <View style={styles.checkMark}>
-          <Text style={styles.checkMarkText}>✓</Text>
+        <View style={benchPickSheet.jurorCheck}>
+          <Text style={benchPickSheet.jurorCheckGlyph}>✓</Text>
         </View>
       )}
-      <Text style={styles.name}>{name}</Text>
-      <Text style={[styles.subtitle, {color: subtitleColor}]}>{subtitle}</Text>
+      <Text style={benchPickSheet.jurorName}>{name}</Text>
+      <Text style={[benchPickSheet.jurorMood, {color: subtitleColor}]}>
+        {subtitle}
+      </Text>
     </Pressable>
   );
 };
 
-const styles = StyleSheet.create({
-  card: {
+const benchPickSheet = StyleSheet.create({
+  jurorTile: {
     flex: 1,
     alignItems: 'center',
     minHeight: 113,
@@ -54,11 +56,11 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     backgroundColor: 'rgba(255,255,255,0.06)',
   },
-  selectedCard: {
+  jurorTileLit: {
     borderColor: '#7FA8FF80',
     backgroundColor: 'rgba(7,69,231,0.45)',
   },
-  avatar: {
+  jurorSeal: {
     alignItems: 'center',
     justifyContent: 'center',
     width: 52,
@@ -69,13 +71,13 @@ const styles = StyleSheet.create({
     borderRadius: 26,
     backgroundColor: 'rgba(127,168,255,0.22)',
   },
-  image: {
+  jurorPortrait: {
     width: 34,
     height: 56,
     top: 6,
     resizeMode: 'contain',
   },
-  checkMark: {
+  jurorCheck: {
     position: 'absolute',
     top: 8,
     right: 8,
@@ -86,20 +88,20 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: '#7FA8FF',
   },
-  checkMarkText: {
+  jurorCheckGlyph: {
     color: '#0C1573',
     fontSize: 8,
     lineHeight: 14,
     fontWeight: '600',
   },
-  name: {
+  jurorName: {
     marginTop: 6,
     color: '#FFFFFF',
     fontSize: 13,
     lineHeight: 17,
     fontWeight: '800',
   },
-  subtitle: {
+  jurorMood: {
     marginTop: 3,
     fontSize: 11,
     lineHeight: 15,
@@ -107,4 +109,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default JudgeCard;
+export default BenchPickTile;

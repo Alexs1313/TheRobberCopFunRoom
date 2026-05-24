@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-type JokeCategoryCardProps = {
+type ComedianLaneDoorProps = {
   title: string;
   badge: string;
   caption: string;
@@ -22,7 +22,7 @@ type JokeCategoryCardProps = {
   onPress: () => void;
 };
 
-const JokeCategoryCard = ({
+const ComedianLaneDoor = ({
   title,
   badge,
   caption,
@@ -33,28 +33,28 @@ const JokeCategoryCard = ({
   badgeBackground,
   marginTop = 64,
   onPress,
-}: JokeCategoryCardProps) => {
+}: ComedianLaneDoorProps) => {
   return (
     <Pressable onPress={onPress}>
       <LinearGradient
         colors={colors}
         start={{x: 0, y: 0}}
         end={{x: 1, y: 1}}
-        style={[styles.card, {borderColor, marginTop}]}>
-        <View style={styles.inner}>
+        style={[laneDoorSheet.arsenalDoor, {borderColor, marginTop}]}>
+        <View style={laneDoorSheet.doorPad}>
           <View>
             <Text
               style={[
-                styles.badge,
+                laneDoorSheet.crewSigil,
                 {backgroundColor: badgeBackground, color: badgeColor},
               ]}>
               {badge}
             </Text>
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.caption}>{caption}</Text>
+            <Text style={laneDoorSheet.doorHeadline}>{title}</Text>
+            <Text style={laneDoorSheet.doorTeaser}>{caption}</Text>
           </View>
-          <View style={styles.characterFrame}>
-            <Image source={image} style={styles.characterImage} />
+          <View style={laneDoorSheet.mascotFrame}>
+            <Image source={image} style={laneDoorSheet.mascotCutout} />
           </View>
         </View>
       </LinearGradient>
@@ -62,17 +62,17 @@ const JokeCategoryCard = ({
   );
 };
 
-const styles = StyleSheet.create({
-  card: {
+const laneDoorSheet = StyleSheet.create({
+  arsenalDoor: {
     height: 144,
     borderWidth: 1,
     borderRadius: 22,
     overflow: 'hidden',
   },
-  inner: {
+  doorPad: {
     padding: 20,
   },
-  badge: {
+  crewSigil: {
     alignSelf: 'flex-start',
     paddingHorizontal: 12,
     paddingVertical: 4,
@@ -83,21 +83,21 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     letterSpacing: 1,
   },
-  title: {
+  doorHeadline: {
     marginTop: 14,
     color: '#FFFFFF',
     fontSize: 20,
     lineHeight: 26,
     fontWeight: '800',
   },
-  caption: {
+  doorTeaser: {
     marginTop: 6,
     color: 'rgba(255,255,255,0.62)',
     fontSize: 15,
     lineHeight: 22,
     fontWeight: '500',
   },
-  characterFrame: {
+  mascotFrame: {
     position: 'absolute',
     right: 2,
     bottom: 0,
@@ -105,11 +105,11 @@ const styles = StyleSheet.create({
     height: 126,
     overflow: 'hidden',
   },
-  characterImage: {
+  mascotCutout: {
     position: 'absolute',
     bottom: 0,
     resizeMode: 'contain',
   },
 });
 
-export default JokeCategoryCard;
+export default ComedianLaneDoor;

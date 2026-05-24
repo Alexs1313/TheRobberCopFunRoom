@@ -4,17 +4,17 @@ workflows:
     max_build_duration: 120
     instance_type: mac_mini_m2
     integrations:
-      app_store_connect: TheRobberCopFunRoomAPIKey
+      app_store_connect: TheRoomAPIKey
     environment:
       xcode: '26.0'
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.dkpeoe.gjgjk.aksasd
+        bundle_identifier: com.fdjakfn.djfnlkq
       vars:
-        BUNDLE_ID: com.dkpeoe.gjgjk.aksasd
+        BUNDLE_ID: com.fdjakfn.djfnlkq
         XCODE_WORKSPACE: TheRobberCopFunRoom.xcworkspace
         XCODE_SCHEME: TheRobberCopFunRoom
-        APP_STORE_APPLE_ID: 6772131824
+        APP_STORE_APPLE_ID: 6772742484
     scripts:
       - name: Install npm dependencies
         script: |
@@ -49,4 +49,4 @@ workflows:
       app_store_connect:
         auth: integration
         submit_to_app_store: true
-        copyright: 'Manon Lemaire 2026'
+        copyright: 'Manon Lemaire'
